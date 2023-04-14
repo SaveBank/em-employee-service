@@ -28,6 +28,4 @@ public class EmployeeDto  {
     @NotEmpty(message = "department code should not be null or empty")
     private String departmentCode;
 
-    @NotEmpty(message = "organization code should not be null or empty")
-    private String organizationCode;
 }
