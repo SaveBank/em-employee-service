@@ -1,5 +1,6 @@
 package SaveBankEmployeeService.Controller;
 
+import SaveBankEmployeeService.Dto.APIResponseDto;
 import SaveBankEmployeeService.Dto.EmployeeDto;
 import SaveBankEmployeeService.Service.EmployeeService;
 import jakarta.validation.Valid;
@@ -20,6 +21,13 @@ public class DepartmentController {
     public ResponseEntity<EmployeeDto> saveEmployee(@Valid @RequestBody EmployeeDto employeeDto){
         EmployeeDto savedEmployee = employeeService.saveEmployee(employeeDto);
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
+    }
+
+    // Build GET Employee by id REST API
+    @GetMapping("{id}")
+    public ResponseEntity<APIResponseDto> getEmployeeById(@PathVariable("id") Long id){
+        APIResponseDto apiResponseDto = employeeService.getEmployeeById(id);
+        return new ResponseEntity<>(apiResponseDto, HttpStatus.OK);
     }
 
 }
