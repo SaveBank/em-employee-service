@@ -8,6 +8,7 @@ import SaveBankEmployeeService.Exception.EmailAlreadyExistsException;
 import SaveBankEmployeeService.Exception.ResourceNotFoundException;
 import SaveBankEmployeeService.Mapper.EmployeeMapper;
 import SaveBankEmployeeService.Repository.EmployeeRepository;
+import SaveBankEmployeeService.Service.APIClient;
 import SaveBankEmployeeService.Service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class EmployeeServiceImpl  implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
 
-    private WebClient webClient;
+    private APIClient apiClient;
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
@@ -51,11 +52,7 @@ public class EmployeeServiceImpl  implements EmployeeService {
         );
         EmployeeDto savedEmployeeDto = EmployeeMapper.mapper.mapToEmployeeDto(employee);
 
-        DepartmentDto departmentDto = webClient.get()
-                .uri("http://localhost:8080/api/departments/" + employee.getDepartmentCode())
-                .retrieve()
-                .bodyToMono(DepartmentDto.class)
-                .block();
+        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
 
         APIResponseDto apiResponseDto = new APIResponseDto();
         apiResponseDto.setDepartmentDto(departmentDto);
