@@ -21,6 +21,9 @@
         <module name="save-bank-employee-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="save-bank-department-service" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
